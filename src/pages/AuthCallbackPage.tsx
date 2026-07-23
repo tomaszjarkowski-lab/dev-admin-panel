@@ -10,7 +10,7 @@ function getHashParams(): URLSearchParams {
 		: window.location.hash;
 	return new URLSearchParams(hash);
 }
-
+ 
 function getEmailFromAccessToken(accessToken: string): string | null {
 	try {
 		const [, payload] = accessToken.split(".");
