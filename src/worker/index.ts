@@ -1,6 +1,7 @@
 import { Hono } from "hono";
+
 const app = new Hono<{ Bindings: Env }>();
 
-app.get("/api/", (c) => c.json({ name: "Cloudflare" }));
+app.get("/api/health", (c) => c.json({ ok: true, service: "medmetrix-admin" }));
 
 export default app;
