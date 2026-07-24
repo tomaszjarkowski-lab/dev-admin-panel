@@ -86,6 +86,8 @@ export type AuthSession = {
 	accessToken: string;
 	refreshToken: string;
 	email: string;
+	userId?: string;
+	role?: UserRole;
 };
 
 export type MagicLinkResponse = {

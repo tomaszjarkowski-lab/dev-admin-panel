@@ -29,7 +29,7 @@ export default function App() {
 					<Route path="/doctor-opinions" element={<DoctorOpinionsPage />} />
 					<Route path="/patients" element={<PatientsPage />} />
 					<Route path="/administrators" element={<AdministratorsPage />} />
-					<Route path="/users" element={<Navigate to="/patients" replace />} />
+					<Route path="/users" element={<Navigate to="/administrators" replace />} />
 				</Route>
 			</Route>
 

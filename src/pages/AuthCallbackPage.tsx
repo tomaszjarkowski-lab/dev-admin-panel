@@ -13,7 +13,7 @@ function getHashParams(): URLSearchParams {
 
 function getEmailFromAccessToken(accessToken: string): string | null {
 	try {
-		const [, payload] = accessToken.split(".");
+		const [, payload] = accessToken.split("."	);
 		if (!payload) return null;
 		const normalized = payload.replace(/-/g, "+").replace(/_/g, "/");
 		const json = JSON.parse(atob(normalized)) as { email?: string };
@@ -26,7 +26,7 @@ function getEmailFromAccessToken(accessToken: string): string | null {
 export function AuthCallbackPage() {
 	const navigate = useNavigate();
 	const [searchParams] = useSearchParams();
-	const { setSession } = useAuth();
+	const { establishSession } = useAuth();
 	const [error, setError] = useState<string | null>(null);
 
 	useEffect(() => {
@@ -47,7 +47,7 @@ export function AuthCallbackPage() {
 				if (hashedToken) {
 					const result = await verifyMagicLink(hashedToken);
 					if (cancelled) return;
-					setSession({
+					await establishSession({
 						accessToken: result.accessToken,
 						refreshToken: result.refreshToken,
 						email: result.email,
@@ -67,7 +67,7 @@ export function AuthCallbackPage() {
 
 				if (accessToken && refreshToken && email) {
 					if (cancelled) return;
-					setSession({ accessToken, refreshToken, email });
+					await establishSession({ accessToken, refreshToken, email });
 					navigate("/dashboard", { replace: true });
 					return;
 				}
@@ -90,7 +90,7 @@ export function AuthCallbackPage() {
 		return () => {
 			cancelled = true;
 		};
-	}, [navigate, searchParams, setSession]);
+	}, [navigate, searchParams, establishSession]);
 
 	if (error) {
 		return (
